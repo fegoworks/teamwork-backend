@@ -1,0 +1,27 @@
+{
+  "name": "teamwork-backend",
+  "version": "1.0.0",
+  "description": "an app for team collaboration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fegoworks/teamwork-backend.git"
+  },
+  "author": "Edafe Oghenefego",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fegoworks/teamwork-backend/issues"
+  },
+  "homepage": "https://github.com/fegoworks/teamwork-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
