@@ -1,7 +1,10 @@
 const express = require('express');
 
 const router = express.Router();
+
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const User = require('../models/user');
 const query = require('../db/index');
 
@@ -50,7 +53,7 @@ router.post('/create-user', async (req, res) => {
     }
     return res.status(400).json({
       status: 'Request failed',
-      error: error.detail,
+      error,
     });
   }
 });
@@ -61,29 +64,46 @@ router.post('/signin', async (req, res) => {
     password,
   } = req.body;
 
-  const text = `
-  SELECT * FROM Users WHERE email='${email}';
-`;
+  const text = ` SELECT * FROM Users WHERE email='${email}';`;
 
   try {
     const {
       rows,
+      rowCount,
     } = await query(text);
-    const validPassword = bcrypt.compareSync(password, rows[0].password);
-    console.log(rows[0].password);
 
+    if (rowCount < 1) {
+      return res.status(401).json({
+        error: 'User not found',
+      });
+    }
+
+    const validPassword = bcrypt.compareSync(password, rows[0].password);
     if (!validPassword) {
-      return res.status(400).json({
+      return res.status(401).json({
         status: 'Request failed',
         error: 'Wrong Password',
       });
     }
+
+    const token = jwt.sign({
+      id: rows[0].userid,
+    }, process.env.SECRET, {
+      expiresIn: 86400, // expires in 24 hours
+    });
+
     return res.status(200).json({
-      status: 'Successful',
-      message: 'Signin successful',
+      status: 'success',
+      data: {
+        token,
+        id: rows[0].userid,
+        firstname: rows[0].firstname,
+        lastname: rows[0].lastname,
+        email: rows[0].email,
+      },
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       status: 'Request failed',
       error: 'Invalid Email or Password',
     });
