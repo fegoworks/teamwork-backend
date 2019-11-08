@@ -55,5 +55,39 @@ router.post('/create-user', async (req, res) => {
   }
 });
 
+router.post('/signin', async (req, res) => {
+  const {
+    email,
+    password,
+  } = req.body;
+
+  const text = `
+  SELECT * FROM Users WHERE email='${email}';
+`;
+
+  try {
+    const {
+      rows,
+    } = await query(text);
+    const validPassword = bcrypt.compareSync(password, rows[0].password);
+    console.log(rows[0].password);
+
+    if (!validPassword) {
+      return res.status(400).json({
+        status: 'Request failed',
+        error: 'Wrong Password',
+      });
+    }
+    return res.status(200).json({
+      status: 'Successful',
+      message: 'Signin successful',
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: 'Request failed',
+      error: 'Invalid Email or Password',
+    });
+  }
+});
 
 module.exports = router;
