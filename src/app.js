@@ -5,6 +5,8 @@ const {
 } = require('pg');
 const dotenv = require('dotenv');
 
+const userRoute = require('./routes/user');
+
 dotenv.config();
 
 const app = express();
@@ -34,7 +36,12 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyparser.json());
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: false,
+}));
 
-// app.use('/api/v1/employees', employeeRoutes);
+app.use('/auth/', userRoute);
+
 
 module.exports = app;
