@@ -8,6 +8,7 @@ class User {
     this.department = null;
     this.address = null;
     this.jobrole = null;
+    this.usertype = null;
   }
 }
 
