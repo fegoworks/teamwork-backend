@@ -1,13 +1,9 @@
 const express = require('express');
+const articleController = require('../controllers/article.controller');
+const verifyToken = require('../middlewares/token.middleware');
 
 const router = express.Router();
 
-const Article = require('../models/article.model.js');
-const query = require('../db/index');
+router.post('/articles', verifyToken.verify, articleController.createArticle);
 
-router.post('/articles', async (req, res) => {
-  let newArticle = new Article();
-  newArticle = {
-    ...req.body,
-  };
-});
+module.exports = router;

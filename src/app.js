@@ -5,7 +5,8 @@ const {
 } = require('pg');
 const dotenv = require('dotenv');
 
-const userRoute = require('./routes/user');
+const userRoute = require('./routes/user.route');
+const articleRoute = require('./routes/article.route');
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use(express.urlencoded({
 }));
 
 app.use('/auth/', userRoute);
+app.use('/api/v1/', articleRoute);
 
 
 module.exports = app;
