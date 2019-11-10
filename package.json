@@ -5,9 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "schema": "node ./src/db/schemas/db.js createTables",
+    "migrations": "node ./src/db/migrations/createTables.js createTables",
+    "seeders": "node ./src/db/seeders/insertTableData.js insertAllTables",
     "start": "node server.js",
-    "start-dev": "npm run schema && nodemon server.js"
+    "start-dev": "npm run migrations && npm run seeders && nodemon server.js"
   },
   "repository": {
     "type": "git",
