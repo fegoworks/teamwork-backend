@@ -3,6 +3,12 @@ const query = require('../db/index');
 const userController = require('../controllers/user.controller');
 
 const articleController = {
+  /**
+   * Create An Article
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} article object
+   */
   async createArticle(req, res) {
     const {
       id,
@@ -51,6 +57,13 @@ const articleController = {
     }
   },
 
+  /**
+   * Update An Article
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} updated article
+   */
+
   async editArticle(req, res) {
     const findOneQuery = 'SELECT * FROM articles WHERE articleid=$1';
     const updateOneQuery = `UPDATE articles
@@ -97,6 +110,40 @@ const articleController = {
       });
     } catch (err) {
       return res.status(400).send(err);
+    }
+  },
+
+  /**
+   * Delete An Article
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
+   */
+
+  async deleteArticle(req, res) {
+    const deleteQuery = 'DELETE FROM articles WHERE articleid=$1 returning *';
+    try {
+      const {
+        rows,
+      } = await query(deleteQuery, [req.params.articleid]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          message: 'article not found',
+        });
+      }
+      if (rows[0].owner !== req.id) {
+        return res.status(403).json({
+          message: 'This article was not created by you',
+        });
+      }
+      return res.status(200).json({
+        status: 'Success',
+        data: {
+          message: 'Article successfully deleted',
+        },
+      });
+    } catch (error) {
+      return res.status(400).send(error);
     }
   },
 };
