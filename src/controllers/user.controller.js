@@ -1,10 +1,16 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const uuid = require('uuidv4').default;
 const User = require('../models/user.model');
 const query = require('../db/index');
 
 const userController = {
+  /**
+   * Create A User
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} user object
+   */
   async createUser(req, res) {
     let newUser = new User();
     newUser = {
@@ -15,11 +21,12 @@ const userController = {
     newUser.password = hashedPassword;
 
     const text = `INSERT INTO
-        users(firstname, lastname, email, password, gender, department, address, jobrole, usertype)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        users(userid, firstname, lastname, email, password, gender, department, address, jobrole, usertype)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         returning *`;
 
     const values = [
+      uuid(),
       newUser.firstname,
       newUser.lastname,
       newUser.email,
@@ -56,6 +63,12 @@ const userController = {
     }
   },
 
+  /**
+   * Signs in user
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} user object
+   */
   async signIn(req, res) {
     const {
       email,
@@ -113,29 +126,6 @@ const userController = {
       });
     }
   },
-
-  async getAUser(userid) {
-    const text = ` SELECT * FROM Users WHERE userid ='${userid}';`;
-    try {
-      const {
-        rows,
-        rowCount,
-      } = await query(text);
-
-      if (rowCount < 1) {
-        return {
-          error: 'User not found',
-        };
-      }
-      return rows[0];
-    } catch (error) {
-      return {
-        status: 'Request failed',
-        error,
-      };
-    }
-  },
-
 };
 
 module.exports = userController;

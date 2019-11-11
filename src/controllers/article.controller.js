@@ -1,6 +1,8 @@
+const uuid = require('uuidv4').default;
 const Article = require('../models/article.model.js');
 const query = require('../db/index');
-const userController = require('../controllers/user.controller');
+const getRows = require('../middlewares/helpers/helper');
+
 
 const articleController = {
   /**
@@ -10,11 +12,8 @@ const articleController = {
    * @returns {object} article object
    */
   async createArticle(req, res) {
-    const {
-      id,
-    } = req;
-
-    const user = await userController.getAUser(id);
+    const sql = ` SELECT * FROM users WHERE userid ='${req.id}';`;
+    const user = await getRows(sql);
     let newArticle = new Article();
     newArticle = {
       ...req.body,
@@ -26,11 +25,12 @@ const articleController = {
     newArticle.owner = userid;
 
     const text = `INSERT INTO
-        articles(title, message, owner)
-        VALUES($1, $2, $3)
+        articles(articleid, title, message, owner)
+        VALUES($1, $2, $3, $4)
         returning *`;
 
     const values = [
+      uuid(),
       newArticle.title,
       newArticle.message,
       newArticle.owner,
@@ -123,24 +123,31 @@ const articleController = {
   async deleteArticle(req, res) {
     const deleteQuery = 'DELETE FROM articles WHERE articleid=$1 returning *';
     try {
-      const {
-        rows,
-      } = await query(deleteQuery, [req.params.articleid]);
-      if (!rows[0]) {
-        return res.status(404).json({
-          message: 'article not found',
+      const sql = ` SELECT * FROM articles WHERE articleid ='${req.params.articleid}';`;
+      const article = await getRows(sql);
+
+      if (article.owner === req.id) {
+        const {
+          rows,
+        } = await query(deleteQuery, [req.params.articleid]);
+
+        if (!rows[0]) {
+          return res.status(404).json({
+            message: 'article was not found',
+          });
+        }
+
+        return res.status(200).json({
+          status: 'Success',
+          data: {
+            message: 'article successfully deleted',
+            articleid: rows[0].articleid,
+          },
         });
       }
-      if (rows[0].owner !== req.id) {
-        return res.status(403).json({
-          message: 'This article was not created by you',
-        });
-      }
-      return res.status(200).json({
-        status: 'Success',
-        data: {
-          message: 'Article successfully deleted',
-        },
+
+      return res.status(401).json({
+        message: 'Unauthorized request',
       });
     } catch (error) {
       return res.status(400).send(error);
