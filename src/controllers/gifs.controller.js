@@ -19,7 +19,7 @@ const gifController = {
 
     // Get cloudinary details
     if (req.file === undefined) {
-      return res.status(322).json({
+      return res.status(403).json({
         status: 'Request failed',
         message: 'Err: No file selected',
       });
