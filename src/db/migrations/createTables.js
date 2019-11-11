@@ -18,7 +18,7 @@ const createTables = () => {
   DROP TABLE IF EXISTS users CASCADE;
   
   CREATE TABLE IF NOT EXISTS users( 
-    userid SERIAL PRIMARY KEY, 
+    userid VARCHAR (50) PRIMARY KEY, 
     firstname VARCHAR (50) NOT null, 
     lastname VARCHAR (50) NOT null, 
     email VARCHAR (60) UNIQUE NOT NULL,
@@ -33,21 +33,21 @@ const createTables = () => {
   DROP TABLE IF EXISTS articles CASCADE;
 
   CREATE TABLE IF NOT EXISTS articles(
-    articleid SERIAL PRIMARY KEY,
+    articleid VARCHAR (50) PRIMARY KEY,
     title VARCHAR (100) NOT NULL, 
     message TEXT NOT null, 
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
-    owner INT NOT NULL
+    owner VARCHAR (50) NOT NULL
     );
 
   DROP TABLE IF EXISTS gifs CASCADE;
 
   CREATE TABLE IF NOT EXISTS gifs(
-    gifid SERIAL PRIMARY KEY,
+    gifid VARCHAR (50) PRIMARY KEY,
     title VARCHAR (100) NOT NULL, 
     imageUrl TEXT NOT null, 
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
-    owner INT NOT NULL
+    owner VARCHAR (50) NOT NULL
     );
     `;
 

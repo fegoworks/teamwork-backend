@@ -1,7 +1,7 @@
 class Gif {
   constructor() {
     this.title = null;
-    this.imageUrl = null;
+    this.message = null;
     this.owner = null;
   }
 }

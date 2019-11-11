@@ -6,6 +6,6 @@ const upload = require('../middlewares/multer');
 const router = express.Router();
 
 router.post('/gifs', verifyToken.verify, upload.single('image'), gifController.createGif);
-// router.delete('/gifs/:gifid', verifyToken.verify);
+router.delete('/gifs/:gifid', verifyToken.verify, gifController.deleteGif);
 
 module.exports = router;
