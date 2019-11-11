@@ -39,6 +39,16 @@ const createTables = () => {
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
     owner INT NOT NULL
     );
+
+  DROP TABLE IF EXISTS gifs CASCADE;
+
+  CREATE TABLE IF NOT EXISTS gifs(
+    gifid SERIAL PRIMARY KEY,
+    title VARCHAR (100) NOT NULL, 
+    imageUrl TEXT NOT null, 
+    createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
+    owner INT NOT NULL
+    );
     `;
 
   pool.query(table)
