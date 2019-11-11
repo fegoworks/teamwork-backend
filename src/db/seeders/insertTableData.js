@@ -82,6 +82,28 @@ const insertAllTables = () => {
         'Breaking doors and boundaries',
         '2'
       );
+
+  TRUNCATE gifs;
+  INSERT INTO gifs(
+    title,
+    imageurl,
+    owner
+    ) 
+    VALUES (
+      'Bomboclat',
+      'https://res.cloudinary.com/fego/image/upload/v1570621104/chef-folio/photo-1482049016688-2d3e1b311543_brscij.jpg',
+      '1'
+      ),
+      (
+        'Scopatumanna',
+        'https://res.cloudinary.com/fego/image/upload/v1570623975/chef-folio/photo-1447078806655-40579c2520d6_kvxsec.jpg',
+        '1'
+      ),
+      (
+        'Ojewa kwamg',
+        'https://res.cloudinary.com/fego/image/upload/v1571830495/hng/sharing_1_au3jr5.png',
+        '2'
+      );
   `;
   pool.query(text)
     .then(() => {
