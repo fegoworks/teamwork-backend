@@ -42,7 +42,7 @@ app.use(express.urlencoded({
   extended: false,
 }));
 
-app.use('/auth/', userRoute);
+app.use('/api/v1/', userRoute);
 app.use('/api/v1/', articleRoute);
 
 

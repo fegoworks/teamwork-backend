@@ -6,7 +6,7 @@ const verifyToken = require('../middlewares/token.middleware');
 const router = express.Router();
 
 
-router.post('/create-user', verifyToken.verify, userController.createUser);
-router.post('/signin', userController.signIn);
+router.post('/auth/create-user', verifyToken.verify, userController.createUser);
+router.post('/auth/signin', userController.signIn);
 
 module.exports = router;
