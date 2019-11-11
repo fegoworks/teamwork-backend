@@ -18,6 +18,12 @@ const gifController = {
     newGif.owner = userid;
 
     // Get cloudinary details
+    if (req.file === undefined) {
+      return res.status(322).json({
+        status: 'Request failed',
+        message: 'Err: No file selected',
+      });
+    }
     const url = await cloudLink(req.file);
     newGif.imageUrl = url.url;
 
@@ -37,7 +43,7 @@ const gifController = {
         rows,
       } = await query(text, values);
 
-      res.status(200).json({
+      return res.status(200).json({
         message: 'GIF image successfully posted',
         data: {
           gifId: rows[0].gifid,
@@ -47,7 +53,7 @@ const gifController = {
         },
       });
     } catch (error) {
-      res.status(403).json({
+      return res.status(403).json({
         error,
       });
     }
