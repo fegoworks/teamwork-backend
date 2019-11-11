@@ -1,12 +1,23 @@
+/* eslint-disable no-use-before-define */
 const fs = require('fs');
+const uuid = require('uuidv4').default;
 const Gif = require('../models/gifs.model');
 const query = require('../db/index');
-const userController = require('../controllers/user.controller');
+const getRows = require('../middlewares/helpers/helper');
 const cloudinary = require('../config/cloudinary');
 
+
 const gifController = {
+  /**
+   * Create a GIF post
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} GIF object
+   */
   async createGif(req, res) {
-    const user = await userController.getAUser(req.id);
+    const sql = ` SELECT * FROM users WHERE userid ='${req.id}';`;
+    const user = await getRows(sql);
+
     let newGif = new Gif();
     newGif = {
       ...req.body,
@@ -29,11 +40,12 @@ const gifController = {
 
     try {
       const text = `INSERT INTO
-        gifs(title, imageurl, owner)
-        VALUES($1, $2, $3)
+        gifs(gifid, title, imageurl, owner)
+        VALUES($1, $2, $3, $4)
         returning *`;
 
       const values = [
+        uuid(),
         newGif.title,
         newGif.imageUrl,
         newGif.owner,
@@ -59,27 +71,40 @@ const gifController = {
     }
   },
 
+  /**
+   * Delete A GIF post
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
+   */
+
   async deleteGif(req, res) {
     const deleteQuery = 'DELETE FROM gifs WHERE gifid=$1 returning *';
     try {
-      const {
-        rows,
-      } = await query(deleteQuery, [req.params.gifid]);
-      if (!rows[0]) {
-        return res.status(404).json({
-          message: 'GIF post not found',
+      const sql = ` SELECT * FROM gifs WHERE gifid ='${req.params.gifid}';`;
+      const gif = await getRows(sql);
+      if (gif.owner === req.id) {
+        const {
+          rows,
+        } = await query(deleteQuery, [req.params.gifid]);
+
+        if (!rows[0]) {
+          return res.status(404).json({
+            message: 'GIF post was not found',
+          });
+        }
+
+        return res.status(200).json({
+          status: 'Success',
+          data: {
+            message: 'GIF post successfully deleted',
+            gifId: rows[0].gifid,
+          },
         });
       }
-      if (rows[0].owner !== req.id) {
-        return res.status(403).json({
-          message: 'This GIF was not posted by you',
-        });
-      }
-      return res.status(200).json({
-        status: 'Success',
-        data: {
-          message: 'GIF post successfully deleted',
-        },
+
+      return res.status(401).json({
+        message: 'Unauthorized request',
       });
     } catch (error) {
       return res.status(400).send(error);
