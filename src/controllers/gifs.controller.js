@@ -58,6 +58,33 @@ const gifController = {
       });
     }
   },
+
+  async deleteGif(req, res) {
+    const deleteQuery = 'DELETE FROM gifs WHERE gifid=$1 returning *';
+    try {
+      const {
+        rows,
+      } = await query(deleteQuery, [req.params.gifid]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          message: 'GIF post not found',
+        });
+      }
+      if (rows[0].owner !== req.id) {
+        return res.status(403).json({
+          message: 'This GIF was not posted by you',
+        });
+      }
+      return res.status(200).json({
+        status: 'Success',
+        data: {
+          message: 'GIF post successfully deleted',
+        },
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
 };
 
 const cloudLink = async (file) => {
