@@ -18,6 +18,7 @@ const insertAllTables = () => {
   const text = `
   TRUNCATE users;
   INSERT INTO users(
+    userid,
     firstname,
     lastname,
     email,
@@ -29,6 +30,7 @@ const insertAllTables = () => {
     usertype
     ) 
     VALUES (
+      'catastrophe',
       'Fego',
       'Edafe',
       'feggie@gmail.com',
@@ -40,6 +42,7 @@ const insertAllTables = () => {
       'admin'
       ),
       (
+        'bangasoup',
         'Adesuwa',
         'George',
         'adesuwageorge@gmail.com',
@@ -51,6 +54,7 @@ const insertAllTables = () => {
         'employee'
       ),
       (
+        'talaviro',
         'Sai',
         'Tama',
         'saitama@gmail.com',
@@ -63,46 +67,54 @@ const insertAllTables = () => {
       );
       TRUNCATE articles;
   INSERT INTO articles(
+    articleid,
     title,
     message,
     owner
     ) 
     VALUES (
+      'cacus',
       'Market Survey',
       'A lot has been said on the current state of things',
-      '1'
+      'catastrophe'
       ),
       (
+        'madluv',
         'Tech report',
         'But then we move on to greater things',
-        '1'
+        'catastrophe'
       ),
       (
+        'dungeon',
         'Tech blazing',
         'Breaking doors and boundaries',
-        '2'
+        'bangasoup'
       );
 
   TRUNCATE gifs;
   INSERT INTO gifs(
+    gifid,
     title,
     imageurl,
     owner
     ) 
     VALUES (
+      'delinam',
       'Bomboclat',
       'https://res.cloudinary.com/fego/image/upload/v1570621104/chef-folio/photo-1482049016688-2d3e1b311543_brscij.jpg',
-      '1'
+      'catastrophe'
       ),
       (
+        'detriment',
         'Scopatumanna',
         'https://res.cloudinary.com/fego/image/upload/v1570623975/chef-folio/photo-1447078806655-40579c2520d6_kvxsec.jpg',
-        '1'
+        'catastrophe'
       ),
       (
+        'ghehsdjh',
         'Ojewa kwamg',
         'https://res.cloudinary.com/fego/image/upload/v1571830495/hng/sharing_1_au3jr5.png',
-        '2'
+        'bangasoup'
       );
   `;
   pool.query(text)
