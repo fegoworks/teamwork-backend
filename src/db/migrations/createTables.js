@@ -1,4 +1,6 @@
-const { Pool } = require('pg');
+const {
+  Pool,
+} = require('pg');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -32,7 +34,7 @@ const createTables = () => {
 
   CREATE TABLE IF NOT EXISTS articles(
     articleid VARCHAR (50) PRIMARY KEY,
-    title VARCHAR (100) NOT NULL, 
+    title VARCHAR (200) NOT NULL, 
     message TEXT NOT null, 
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
     owner VARCHAR (50) NOT NULL
@@ -42,8 +44,8 @@ const createTables = () => {
 
   CREATE TABLE IF NOT EXISTS gifs(
     gifid VARCHAR (50) PRIMARY KEY,
-    title VARCHAR (100) NOT NULL, 
-    imageUrl VARCHAR (100) NOT null, 
+    title VARCHAR (200) NOT NULL, 
+    imageUrl VARCHAR (255) NOT null, 
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
     owner VARCHAR (50) NOT NULL
     );
@@ -52,7 +54,7 @@ const createTables = () => {
 
   CREATE TABLE IF NOT EXISTS articlecomments(
     commentid VARCHAR (50) PRIMARY KEY,
-    articleid VARCHAR (50) PRIMARY KEY,
+    articleid VARCHAR (50) NOT NULL,
     comment TEXT NOT null, 
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
     owner VARCHAR (50) NOT NULL
@@ -62,7 +64,7 @@ const createTables = () => {
 
   CREATE TABLE IF NOT EXISTS gifcomments(
     commentid VARCHAR (50) PRIMARY KEY,
-    gifid VARCHAR (50) PRIMARY KEY,
+    gifid VARCHAR (50) NOT NULL,
     comment TEXT NOT null, 
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
     owner VARCHAR (50) NOT NULL
