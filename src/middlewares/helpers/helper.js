@@ -8,9 +8,7 @@ const getRows = async (text) => {
     } = await query(text);
 
     if (rowCount < 1) {
-      return {
-        error: 'Not found',
-      };
+      return undefined;
     }
     return rows[0];
   } catch (error) {

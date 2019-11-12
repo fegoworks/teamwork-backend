@@ -14,6 +14,11 @@ const commentController = {
   async createComment(req, res) {
     const sql = ` SELECT * FROM articles WHERE articleid ='${req.params.articleid}';`;
     const article = await getRows(sql);
+    if (article === undefined) {
+      return res.status(404).json({
+        message: 'article was not found',
+      });
+    }
 
     let newComment = new ArticleComment();
     newComment = {

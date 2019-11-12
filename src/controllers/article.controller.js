@@ -125,17 +125,16 @@ const articleController = {
     try {
       const sql = ` SELECT * FROM articles WHERE articleid ='${req.params.articleid}';`;
       const article = await getRows(sql);
+      if (article === undefined) {
+        return res.status(404).json({
+          message: 'article was not found',
+        });
+      }
 
       if (article.owner === req.id) {
         const {
           rows,
         } = await query(deleteQuery, [req.params.articleid]);
-
-        if (!rows[0]) {
-          return res.status(404).json({
-            message: 'article was not found',
-          });
-        }
 
         return res.status(200).json({
           status: 'Success',

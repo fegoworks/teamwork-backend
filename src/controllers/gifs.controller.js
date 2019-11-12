@@ -83,16 +83,16 @@ const gifController = {
     try {
       const sql = ` SELECT * FROM gifs WHERE gifid ='${req.params.gifid}';`;
       const gif = await getRows(sql);
+      if (gif === undefined) {
+        return res.status(404).json({
+          message: 'GIF post was not found',
+        });
+      }
       if (gif.owner === req.id) {
         const {
           rows,
         } = await query(deleteQuery, [req.params.gifid]);
 
-        if (!rows[0]) {
-          return res.status(404).json({
-            message: 'GIF post was not found',
-          });
-        }
 
         return res.status(200).json({
           status: 'Success',
