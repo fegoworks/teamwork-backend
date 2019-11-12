@@ -10,6 +10,7 @@ const articleRoute = require('./routes/article.route');
 const gifRoute = require('./routes/gifs.route');
 const articleCommentRoute = require('./routes/article.comment.route');
 const gifCommentRoute = require('./routes/gif.comment.route');
+const feedRoute = require('./routes/feed.route');
 
 dotenv.config();
 
@@ -50,5 +51,6 @@ app.use('/api/v1/', articleRoute);
 app.use('/api/v1/', gifRoute);
 app.use('/api/v1/', articleCommentRoute);
 app.use('/api/v1/', gifCommentRoute);
+app.use('/api/v1/', feedRoute);
 
 module.exports = app;

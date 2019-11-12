@@ -45,7 +45,7 @@ const articleController = {
         data: {
           message: 'Article successfully posted',
           articleId: rows[0].articleid,
-          createdOn: rows[0].createdOn,
+          createdOn: rows[0].createdon,
           title: rows[0].title,
         },
       });
