@@ -72,6 +72,50 @@ const gifController = {
   },
 
   /**
+   * Get A Gif post
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} gif object
+   */
+
+  async getGif(req, res) {
+    const sql1 = 'SELECT * FROM gifs WHERE gifid= $1';
+    const sql2 = 'SELECT * FROM gifcomments WHERE gifid=$1';
+    const commentArr = [];
+
+    try {
+      const {
+        rows: gif,
+      } = await query(sql1, [req.params.gifid]);
+      const {
+        rows: commentrows,
+      } = await query(sql2, [req.params.gifid]);
+
+      commentrows.forEach((item) => {
+        const comment = {
+          commentId: item.commentid,
+          comment: item.comment,
+          authorId: item.owner,
+        };
+        commentArr.push(comment);
+      });
+
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          id: gif[0].gifid,
+          createdOn: gif[0].createdon,
+          title: gif[0].title,
+          url: gif[0].imageurl,
+          comments: commentArr,
+        },
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  /**
    * Delete A GIF post
    * @param {object} req
    * @param {object} res
