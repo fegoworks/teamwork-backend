@@ -65,7 +65,8 @@ const insertAllTables = () => {
         'tehnician',
         'employee'
       );
-      TRUNCATE articles;
+
+  TRUNCATE articles;
   INSERT INTO articles(
     articleid,
     title,
@@ -114,6 +115,58 @@ const insertAllTables = () => {
         'ghehsdjh',
         'Ojewa kwamg',
         'https://res.cloudinary.com/fego/image/upload/v1571830495/hng/sharing_1_au3jr5.png',
+        'bangasoup'
+      );
+
+  TRUNCATE articlecomments;
+  INSERT INTO articlecomments(
+    commentid,
+    articleid,
+    comment,
+    owner
+    ) 
+    VALUES (
+      'jigsaw',
+      'dungeon',
+      'So I am bored shitless and I have to pen this',
+      'catastrophe'
+      ),
+      (
+        'threebats',
+        'dungeon',
+        'Nas is like freedom or jail, clips inserted. A man is being born same time a man is murdered',
+        'catastrophe'
+      ),
+      (
+        'herewego',
+        'dungeon',
+        'It aint hard to tell, my poetry is deep. Nas raps should be left in a cell',
+        'bangasoup'
+      );
+
+  TRUNCATE gifcomments;
+  INSERT INTO gifcomments(
+    commentid,
+    gifid,
+    comment,
+    owner
+    ) 
+    VALUES (
+      'jigsaw',
+      'delinam',
+      'So I am bored shitless and I have to pen this',
+      'catastrophe'
+      ),
+      (
+        'threebats',
+        'delinam',
+        'Nas is like freedom or jail, clips inserted. A man is being born same time a man is murdered',
+        'catastrophe'
+      ),
+      (
+        'herewego',
+        'delinam',
+        'It aint hard to tell, my poetry is deep. Nas raps should be left in a cell',
         'bangasoup'
       );
   `;
