@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const userRoute = require('./routes/user.route');
 const articleRoute = require('./routes/article.route');
 const gifRoute = require('./routes/gifs.route');
+const articleCommentRoute = require('./routes/article.comment.route');
 
 dotenv.config();
 
@@ -46,6 +47,6 @@ app.use(express.urlencoded({
 app.use('/api/v1/', userRoute);
 app.use('/api/v1/', articleRoute);
 app.use('/api/v1/', gifRoute);
-
+app.use('/api/v1/', articleCommentRoute);
 
 module.exports = app;
