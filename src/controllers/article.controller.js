@@ -11,6 +11,7 @@ const articleController = {
    * @param {object} res
    * @returns {object} article object
    */
+
   async createArticle(req, res) {
     const sql = ` SELECT * FROM users WHERE userid ='${req.id}';`;
     const user = await getRows(sql);
@@ -58,6 +59,50 @@ const articleController = {
   },
 
   /**
+   * Get An Article
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} article object
+   */
+
+  async getArticle(req, res) {
+    const sql1 = 'SELECT * FROM articles WHERE articleid= $1';
+    const sql2 = 'SELECT * FROM articlecomments WHERE articleid=$1';
+    const commentArr = [];
+
+    try {
+      const {
+        rows: article,
+      } = await query(sql1, [req.params.articleid]);
+      const {
+        rows: commentrows,
+      } = await query(sql2, [req.params.articleid]);
+
+      commentrows.forEach((item) => {
+        const comment = {
+          commentId: item.commentid,
+          comment: item.comment,
+          authorId: item.owner,
+        };
+        commentArr.push(comment);
+      });
+
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          id: article[0].articleid,
+          createdOn: article[0].createdon,
+          title: article[0].title,
+          article: article[0].message,
+          comments: commentArr,
+        },
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  /**
    * Update An Article
    * @param {object} req
    * @param {object} res
@@ -93,12 +138,10 @@ const articleController = {
       ];
       const response = await query(updateOneQuery, values);
 
-
       const {
         title,
         message,
       } = response.rows[0];
-
 
       return res.status(200).json({
         status: 'success',
@@ -108,8 +151,8 @@ const articleController = {
           article: message,
         },
       });
-    } catch (err) {
-      return res.status(400).send(err);
+    } catch (error) {
+      return res.status(400).send(error);
     }
   },
 
