@@ -90,8 +90,8 @@ const validator = {
         .trim()
         .lowercase()
         .error(new Error('A Gif post title is required')),
-      image: Joi.any().required()
-        .error(new Error('A Gif file is required')),
+      // image: Joi.any().required()
+      //   .error(new Error('A Gif file is required')),
     }),
     createComment: Joi.object().keys({
       comment: Joi.string().required()
@@ -100,7 +100,7 @@ const validator = {
         .error(new Error('A comment is required')),
     }),
     gifIdSchema: Joi.object().keys({
-      gifid: Joi.string().guid({
+      gifId: Joi.string().guid({
           version: [
             'uuidv4',
           ],
@@ -110,7 +110,7 @@ const validator = {
         ),
     }),
     articleIdSchema: Joi.object().keys({
-      articleid: Joi.string().guid({
+      articleId: Joi.string().guid({
           version: [
             'uuidv4',
           ],
