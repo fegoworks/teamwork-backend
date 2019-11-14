@@ -15,6 +15,11 @@ router.get('/articles/:articleid',
   validate.validateParams(validate.schemas.articleIdSchema),
   articleController.getArticle);
 
+router.get('/category/:categoryName',
+  verifyToken.verify,
+  validate.validateParams(validate.schemas.articleCategorySchema),
+  articleController.getByCategory);
+
 router.patch('/articles/:articleid',
   verifyToken.verify,
   validate.validateParams(validate.schemas.articleIdSchema),

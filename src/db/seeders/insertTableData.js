@@ -71,24 +71,28 @@ const insertAllTables = () => {
     articleid,
     title,
     message,
+    category,
     owner
     ) 
     VALUES (
       'cacus',
       'Market Survey',
       'A lot has been said on the current state of things',
+      'politics',
       'catastrophe'
       ),
       (
         'madluv',
         'Tech report',
         'But then we move on to greater things',
+        'politics',
         'catastrophe'
       ),
       (
         'dungeon',
         'Tech blazing',
         'Breaking doors and boundaries',
+        'health',
         'bangasoup'
       );
 
