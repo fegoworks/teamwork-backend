@@ -103,6 +103,40 @@ const articleController = {
   },
 
   /**
+   * Get Articles
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} array of objects
+   */
+
+  async getByCategory(req, res) {
+    const sql = 'SELECT * FROM articles WHERE category= $1';
+    const articles = [];
+
+    try {
+      const {
+        rows: articleRows,
+      } = await query(sql, [req.params.categoryName]);
+
+      articleRows.forEach((item) => {
+        articles.push({
+          id: item.articleid,
+          createdOn: item.createdon,
+          title: item.title,
+          article: item.message,
+        });
+      });
+
+      return res.status(200).json({
+        status: 'success',
+        data: articles,
+      });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  },
+
+  /**
    * Update An Article
    * @param {object} req
    * @param {object} res
