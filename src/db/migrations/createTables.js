@@ -36,6 +36,7 @@ const createTables = () => {
     articleid VARCHAR (50) PRIMARY KEY,
     title VARCHAR (200) NOT NULL, 
     message TEXT NOT null, 
+    category VARCHAR (60) NOT NULL,
     createdOn TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, 
     owner VARCHAR (50) NOT NULL
     );
