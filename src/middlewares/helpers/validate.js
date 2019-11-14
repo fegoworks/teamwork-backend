@@ -119,6 +119,12 @@ const validator = {
           new Error('articleId must be a uuid'),
         ),
     }),
+    articleCategorySchema: Joi.object().keys({
+      categoryName: Joi.string().regex(/^[a-zA-Z\\-]*$/).required()
+        .trim()
+        .lowercase()
+        .error(new Error('Category Name is required')),
+    }),
   },
 };
 
