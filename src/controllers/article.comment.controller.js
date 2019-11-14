@@ -12,7 +12,7 @@ const commentController = {
    * @returns {object} comment object
    */
   async createComment(req, res) {
-    const sql = ` SELECT * FROM articles WHERE articleid ='${req.params.articleid}';`;
+    const sql = ` SELECT * FROM articles WHERE articleid ='${req.params.articleId}';`;
     const article = await getRows(sql);
     if (article === undefined) {
       return res.status(404).json({
@@ -34,7 +34,7 @@ const commentController = {
 
     const values = [
       uuid(),
-      req.params.articleid,
+      req.params.articleId,
       newComment.comment,
       newComment.owner,
     ];

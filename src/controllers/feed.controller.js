@@ -18,8 +18,14 @@ const feedController = {
         rows: articles,
       } = await query(sql1);
 
-      articles.forEach((article) => {
-        feeds.push(article);
+      articles.forEach((item) => {
+        feeds.push({
+          id: item.articleid,
+          createdOn: item.createdon,
+          title: item.title,
+          article: item.message,
+          authorId: item.owner,
+        });
       });
 
       // Get gifs
@@ -28,7 +34,13 @@ const feedController = {
       } = await query(sql2);
 
       gifs.forEach((gif) => {
-        feeds.push(gif);
+        feeds.push({
+          id: gif.gifid,
+          createdOn: gif.createdon,
+          title: gif.title,
+          url: gif.imageurl,
+          authorId: gif.owner,
+        });
       });
 
       // Sort feeds

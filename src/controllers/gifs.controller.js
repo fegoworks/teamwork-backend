@@ -56,9 +56,10 @@ const gifController = {
       } = await query(text, values);
 
       return res.status(200).json({
-        message: 'GIF image successfully posted',
+        status: 'success',
         data: {
           gifId: rows[0].gifid,
+          message: 'GIF image successfully posted',
           createdOn: rows[0].createdon,
           title: rows[0].title,
           imageUrl: rows[0].imageurl,
@@ -86,10 +87,10 @@ const gifController = {
     try {
       const {
         rows: gif,
-      } = await query(sql1, [req.params.gifid]);
+      } = await query(sql1, [req.params.gifId]);
       const {
         rows: commentrows,
-      } = await query(sql2, [req.params.gifid]);
+      } = await query(sql2, [req.params.gifId]);
 
       commentrows.forEach((item) => {
         const comment = {
@@ -125,7 +126,7 @@ const gifController = {
   async deleteGif(req, res) {
     const deleteQuery = 'DELETE FROM gifs WHERE gifid=$1 returning *';
     try {
-      const sql = ` SELECT * FROM gifs WHERE gifid ='${req.params.gifid}';`;
+      const sql = ` SELECT * FROM gifs WHERE gifid ='${req.params.gifId}';`;
       const gif = await getRows(sql);
       if (gif === undefined) {
         return res.status(404).json({
@@ -135,7 +136,7 @@ const gifController = {
       if (gif.owner === req.id) {
         const {
           rows,
-        } = await query(deleteQuery, [req.params.gifid]);
+        } = await query(deleteQuery, [req.params.gifId]);
 
         return res.status(200).json({
           status: 'Success',

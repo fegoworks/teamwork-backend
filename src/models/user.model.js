@@ -1,14 +1,14 @@
 class User {
   constructor() {
-    this.firstname = null;
-    this.lastname = null;
+    this.firstName = null;
+    this.lastName = null;
     this.email = null;
     this.password = null;
     this.gender = null;
     this.department = null;
     this.address = null;
-    this.jobrole = null;
-    this.usertype = null;
+    this.jobRole = null;
+    this.userType = null;
   }
 }
 
