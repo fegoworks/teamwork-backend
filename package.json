@@ -4,11 +4,11 @@
   "description": "an app for team collaboration",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "migrations": "node ./src/db/migrations/createTables.js createTables",
     "seeders": "node ./src/db/seeders/insertTableData.js insertAllTables",
     "start": "node server.js",
-    "start-dev": "npm run migrations && npm run seeders && nodemon server.js"
+    "start-dev": "npm run migrations && npm run seeders && nodemon server.js",
+    "test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/ --exit || true"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "mocha": "^6.2.2",
     "multer": "^1.4.2",
     "pg": "*",
+    "supertest": "^4.0.2",
     "uuidv4": "^5.0.1"
   },
   "devDependencies": {
