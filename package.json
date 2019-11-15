@@ -8,7 +8,8 @@
     "seeders": "node ./src/db/seeders/insertTableData.js insertAllTables",
     "start": "node server.js",
     "start-dev": "npm run migrations && npm run seeders && nodemon server.js",
-    "test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/ --exit || true"
+    "test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/ --exit || true",
+    "single-test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/article.test.js --exit || true"
   },
   "repository": {
     "type": "git",
