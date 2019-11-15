@@ -23,8 +23,7 @@ const verifyToken = {
 
       // If everything is good, save to request for use in other routes
       req.id = decoded.id;
-      req.usertype = decoded.usertype;
-      req.email = decoded.email;
+      req.userType = decoded.userType;
       return next();
     });
   },
