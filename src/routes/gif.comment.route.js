@@ -5,7 +5,7 @@ const validate = require('../middlewares/helpers/validate');
 
 const router = express.Router();
 
-router.post('/gifs/:gifid/comments',
+router.post('/gifs/:gifId/comments',
   verifyToken.verify,
   validate.validateParams(validate.schemas.gifIdSchema),
   validate.validateBody(validate.schemas.createComment),

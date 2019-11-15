@@ -27,15 +27,15 @@ const userController = {
 
     const values = [
       uuid(),
-      newUser.firstname,
-      newUser.lastname,
+      newUser.firstName,
+      newUser.lastName,
       newUser.email,
       newUser.password,
       newUser.gender,
       newUser.department,
       newUser.address,
-      newUser.jobrole,
-      newUser.usertype,
+      newUser.jobRole,
+      newUser.userType,
     ];
 
     try {
@@ -103,9 +103,9 @@ const userController = {
 
       const token = jwt.sign({
         id: data.userid,
-        usertype: data.usertype,
-        email: data.email,
-      }, process.env.SECRET, {
+        userType: data.usertype,
+      },
+      process.env.SECRET, {
         expiresIn: 86400, // expires in 24 hours
       });
 
@@ -113,9 +113,9 @@ const userController = {
         status: 'success',
         data: {
           token,
-          id: data.userid,
-          firstname: data.firstname,
-          lastname: data.lastname,
+          userId: data.userid,
+          firstName: data.firstName,
+          lastName: data.lastName,
           email: data.email,
         },
       });

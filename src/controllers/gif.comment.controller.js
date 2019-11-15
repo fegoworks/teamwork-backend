@@ -12,7 +12,7 @@ const commentController = {
    * @returns {object} comment object
    */
   async createComment(req, res) {
-    const sql = ` SELECT * FROM gifs WHERE gifid ='${req.params.gifid}';`;
+    const sql = ` SELECT * FROM gifs WHERE gifid ='${req.params.gifId}';`;
     const gif = await getRows(sql);
     if (gif === undefined) {
       return res.status(404).json({
@@ -34,7 +34,7 @@ const commentController = {
 
     const values = [
       uuid(),
-      req.params.gifid,
+      req.params.gifId,
       newComment.comment,
       newComment.owner,
     ];

@@ -12,12 +12,12 @@ router.post('/gifs',
   validate.validateBody(validate.schemas.createGifSchema),
   gifController.createGif);
 
-router.get('/gifs/:gifid',
+router.get('/gifs/:gifId',
   verifyToken.verify,
   validate.validateParams(validate.schemas.gifIdSchema),
   gifController.getGif);
 
-router.delete('/gifs/:gifid',
+router.delete('/gifs/:gifId',
   verifyToken.verify,
   validate.validateParams(validate.schemas.gifIdSchema),
   gifController.deleteGif);

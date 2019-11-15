@@ -30,11 +30,11 @@ const validator = {
   schemas: {
     authSchema: Joi.object().keys({
 
-      firstname: Joi.string().regex(/^[a-zA-Z]*$/).required()
+      firstName: Joi.string().regex(/^[a-zA-Z]*$/).required()
         .trim()
         .lowercase()
         .error(new Error('First Name is required')),
-      lastname: Joi.string().regex(/^[a-zA-Z\\-]*$/).required()
+      lastName: Joi.string().regex(/^[a-zA-Z\\-]*$/).required()
         .trim()
         .lowercase()
         .error(new Error('Last Name is required')),
@@ -57,11 +57,11 @@ const validator = {
         .trim()
         .lowercase()
         .error(new Error('Address is required')),
-      jobrole: Joi.string().required()
+      jobRole: Joi.string().required()
         .trim()
         .lowercase()
         .error(new Error('Job role is required')),
-      usertype: Joi.string().required()
+      userType: Joi.string().required()
         .trim()
         .lowercase()
         .valid('admin', 'employee')
@@ -90,8 +90,8 @@ const validator = {
         .trim()
         .lowercase()
         .error(new Error('A Gif post title is required')),
-      image: Joi.any().required()
-        .error(new Error('A Gif file is required')),
+      // image: Joi.any().required()
+      //   .error(new Error('A Gif file is required')),
     }),
     createComment: Joi.object().keys({
       comment: Joi.string().required()
@@ -100,21 +100,21 @@ const validator = {
         .error(new Error('A comment is required')),
     }),
     gifIdSchema: Joi.object().keys({
-      gifid: Joi.string().guid({
-        version: [
-          'uuidv4',
-        ],
-      }).required()
+      gifId: Joi.string().guid({
+          version: [
+            'uuidv4',
+          ],
+        }).required()
         .error(
           new Error('gifId must be a uuid'),
         ),
     }),
     articleIdSchema: Joi.object().keys({
-      articleid: Joi.string().guid({
-        version: [
-          'uuidv4',
-        ],
-      }).required()
+      articleId: Joi.string().guid({
+          version: [
+            'uuidv4',
+          ],
+        }).required()
         .error(
           new Error('articleId must be a uuid'),
         ),

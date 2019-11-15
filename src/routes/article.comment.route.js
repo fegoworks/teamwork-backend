@@ -5,7 +5,7 @@ const validate = require('../middlewares/helpers/validate');
 
 const router = express.Router();
 
-router.post('/articles/:articleid/comments',
+router.post('/articles/:articleId/comments',
   verifyToken.verify,
   validate.validateParams(validate.schemas.articleIdSchema),
   validate.validateBody(validate.schemas.createComment),

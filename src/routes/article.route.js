@@ -10,7 +10,7 @@ router.post('/articles',
   validate.validateBody(validate.schemas.createArticleSchema),
   articleController.createArticle);
 
-router.get('/articles/:articleid',
+router.get('/articles/:articleId',
   verifyToken.verify,
   validate.validateParams(validate.schemas.articleIdSchema),
   articleController.getArticle);
@@ -20,13 +20,13 @@ router.get('/category/:categoryName',
   validate.validateParams(validate.schemas.articleCategorySchema),
   articleController.getByCategory);
 
-router.patch('/articles/:articleid',
+router.patch('/articles/:articleId',
   verifyToken.verify,
   validate.validateParams(validate.schemas.articleIdSchema),
   validate.validateBody(validate.schemas.createArticleSchema),
   articleController.editArticle);
 
-router.delete('/articles/:articleid',
+router.delete('/articles/:articleId',
   verifyToken.verify,
   validate.validateParams(validate.schemas.articleIdSchema),
   articleController.deleteArticle);

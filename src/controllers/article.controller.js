@@ -73,10 +73,10 @@ const articleController = {
     try {
       const {
         rows: article,
-      } = await query(sql1, [req.params.articleid]);
+      } = await query(sql1, [req.params.articleId]);
       const {
         rows: commentrows,
-      } = await query(sql2, [req.params.articleid]);
+      } = await query(sql2, [req.params.articleId]);
 
       commentrows.forEach((item) => {
         const comment = {
@@ -152,7 +152,7 @@ const articleController = {
     try {
       const {
         rows,
-      } = await query(findOneQuery, [req.params.articleid]);
+      } = await query(findOneQuery, [req.params.articleId]);
       if (!rows[0]) {
         return res.status(404).send({
           message: 'article not found',
@@ -168,7 +168,7 @@ const articleController = {
         req.body.message || rows[0].message,
         new Date(),
         req.id,
-        req.params.articleid || rows[0].articleId,
+        req.params.articleId || rows[0].articleid,
       ];
       const response = await query(updateOneQuery, values);
 
@@ -200,7 +200,7 @@ const articleController = {
   async deleteArticle(req, res) {
     const deleteQuery = 'DELETE FROM articles WHERE articleid=$1 returning *';
     try {
-      const sql = ` SELECT * FROM articles WHERE articleid ='${req.params.articleid}';`;
+      const sql = ` SELECT * FROM articles WHERE articleid ='${req.params.articleId}';`;
       const article = await getRows(sql);
       if (article === undefined) {
         return res.status(404).json({
@@ -211,13 +211,13 @@ const articleController = {
       if (article.owner === req.id) {
         const {
           rows,
-        } = await query(deleteQuery, [req.params.articleid]);
+        } = await query(deleteQuery, [req.params.articleId]);
 
         return res.status(200).json({
           status: 'Success',
           data: {
             message: 'article successfully deleted',
-            articleid: rows[0].articleid,
+            articleId: rows[0].articleid,
           },
         });
       }
