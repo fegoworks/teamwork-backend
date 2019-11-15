@@ -84,6 +84,10 @@ const validator = {
         .trim()
         .lowercase()
         .error(new Error('An article message is required')),
+      category: Joi.string().required()
+        .trim()
+        .lowercase()
+        .error(new Error('A category is required')),
     }),
     createGifSchema: Joi.object().keys({
       title: Joi.string().required()
@@ -101,20 +105,20 @@ const validator = {
     }),
     gifIdSchema: Joi.object().keys({
       gifId: Joi.string().guid({
-          version: [
-            'uuidv4',
-          ],
-        }).required()
+        version: [
+          'uuidv4',
+        ],
+      }).required()
         .error(
           new Error('gifId must be a uuid'),
         ),
     }),
     articleIdSchema: Joi.object().keys({
       articleId: Joi.string().guid({
-          version: [
-            'uuidv4',
-          ],
-        }).required()
+        version: [
+          'uuidv4',
+        ],
+      }).required()
         .error(
           new Error('articleId must be a uuid'),
         ),
