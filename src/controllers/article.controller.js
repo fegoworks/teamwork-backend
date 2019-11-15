@@ -26,14 +26,15 @@ const articleController = {
     newArticle.owner = userid;
 
     const text = `INSERT INTO
-        articles(articleid, title, message, owner)
-        VALUES($1, $2, $3, $4)
+        articles(articleid, title, message, category, owner)
+        VALUES($1, $2, $3, $4, $5)
         returning *`;
 
     const values = [
       uuid(),
       newArticle.title,
       newArticle.message,
+      newArticle.category,
       newArticle.owner,
     ];
 
