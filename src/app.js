@@ -53,4 +53,15 @@ app.use('/api/v1/', articleCommentRoute);
 app.use('/api/v1/', gifCommentRoute);
 app.use('/api/v1/', feedRoute);
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Teamwork! Built by Fego for DevC');
+});
+
+app.all('*', (req, res) => {
+  res.status(404).json({
+    status: 404,
+    error: 'that route does not exist',
+  });
+});
+
 module.exports = app;

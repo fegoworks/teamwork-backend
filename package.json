@@ -8,8 +8,9 @@
     "seeders": "node ./src/db/seeders/insertTableData.js insertAllTables",
     "start": "node server.js",
     "start-dev": "npm run migrations && npm run seeders && nodemon server.js",
-    "test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/ --exit || true",
-    "single-test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/feeds.test.js --exit || true"
+    "test": "set NODE-ENV='TEST' && npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/ --exit || true",
+    "single-test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/feeds.test.js --exit || true",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "uuidv4": "^5.0.1"
   },
   "devDependencies": {
+    "coveralls": "^3.0.7",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
