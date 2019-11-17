@@ -1,9 +1,5 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const {
-  Pool,
-} = require('pg');
-const dotenv = require('dotenv');
 
 const userRoute = require('./routes/user.route');
 const articleRoute = require('./routes/article.route');
@@ -12,20 +8,7 @@ const articleCommentRoute = require('./routes/article.comment.route');
 const gifCommentRoute = require('./routes/gif.comment.route');
 const feedRoute = require('./routes/feed.route');
 
-dotenv.config();
-
 const app = express();
-
-// DB connect string
-const connect = process.env.DB_URL;
-
-const pool = new Pool({
-  connectionString: connect,
-});
-
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
