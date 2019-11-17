@@ -46,10 +46,16 @@ You need to have or install the following:
   npm install
   ```
 - create a `.env` file with this template
+
   ```
   DB_URL='Your postgres database url'
   TEST_URL='Your postgres test database url'
+  SECRET = boomshakalaka
+  CLOUD_NAME = 'Your cloudinary name'
+  CLOUDINARY_API_KEY = 'cloudinary API key'
+  CLOUDINARY_API_SECRET = 'cloudinary API secret'
   ```
+
 - start app
   ```
   npm run dev-start
