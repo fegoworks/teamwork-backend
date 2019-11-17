@@ -7,7 +7,7 @@
     "migrations": "node ./src/db/migrations/createTables.js createTables",
     "seeders": "node ./src/db/seeders/insertTableData.js insertAllTables",
     "start": "node server.js",
-    "start-dev": "npm run migrations && npm run seeders && nodemon server.js",
+    "dev-start": "npm run migrations && npm run seeders && nodemon server.js",
     "test": "set NODE-ENV='TEST' && npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/ --exit || true",
     "single-test": "npm run migrations && npm run seeders && nyc mocha --timeout=50000 ./src/test/feeds.test.js --exit || true",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
